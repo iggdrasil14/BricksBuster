@@ -20,6 +20,6 @@ public class Moving : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2 (horizontal, 0) * speedPlatform;
+        rb.velocity = new Vector2(horizontal, 0) * speedPlatform;
     }
 }
