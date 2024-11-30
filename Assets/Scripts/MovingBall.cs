@@ -5,18 +5,13 @@ using UnityEngine;
 public class MovingBall : MonoBehaviour
 {
     public Rigidbody2D rb;                                                                      // Переменная, которая ссылается на компонент Rigidbody 2D.
-    public GameObject platform;
-    public GameObject ball;
-    public GameObject platformAndBallPrefab;
     public bool isActive;                                                                       // Состояние мяча (деактивирован в начале игры, активирован после нажатия ЛКМ).
-    private bool _isFall = false;
+    public static bool isFall = false;
     public float Force = 500f;                                                                  // Сила с которой мяч начинает двигаться.
     public float OffsetX = 100f;                                                                // Смещение мяча по оси X.
     public float speedBall;
     public int _playersLife;                                                                    // Количество жизней игрока
     private Vector2 _inDirection;
-    private Vector2 _inNormal;
-    private Vector2 _startPosition;
 
     void Start()
     {
@@ -61,40 +56,8 @@ public class MovingBall : MonoBehaviour
         // Уничтожение шара, потеря жизни игрока, окончание игры.
         if (collision.gameObject.CompareTag("DeathZone"))                                       // Проверка, содержит ли объект тег DeathZone.
         {
-            Destroy(ball);                                                                      // Уничтожает объект ball.
-            Destroy(platform);                                                                  // Уничтожает объект platform (старая).
-            Instantiate(platformAndBallPrefab, new Vector2(0, -8), Quaternion.identity);        // Инициализация префаба FlatformAndBall в начальный координатах.
-            _isFall = true;
-        }
-    }
-
-    /// <summary>
-    /// Метод увеличения/уменьшения количества жизней у игрока.
-    /// </summary>
-    public void PlayersLife()
-    {
-        // Условия увеличения количества жизней.
-        //if ()
-        //{
-        //    _playersLife++;
-        //}
-
-        // Условие уменьшения количества жизней.
-        if(_isFall == true)
-        {
-            _playersLife--;
-            GameOver();
-        }
-    }
-
-    /// <summary>
-    /// Метод проверки окончания игры.
-    /// </summary>
-    public void GameOver()
-    {
-        if(_playersLife <= 0)
-        {
-            Debug.Log("Game Over");
+            isFall = true;
+            Debug.Log("isFall = true"); // Флаг - шар упал.
         }
     }
 }
