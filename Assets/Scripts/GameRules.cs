@@ -5,27 +5,30 @@ using UnityEngine;
 
 public class GameRules : MonoBehaviour
 {
-    public GameObject platformPrefab;
-    public GameObject ballPrefab;
-    private int _playerLifes;                                                                   // Количество жизней у игрока
+    private GameObject _platform;                                                                   // Скрытая переменная платформы (для уничтожения).
+    private GameObject _ball;                                                                       // Скрытая переменная щара (для уничтожения).
+    public GameObject platformPrefab;                                                               // Игровой объект со ссылкой на префаб платформы.
+    public GameObject ballPrefab;                                                                   // Игровой объект со ссылкой на префаб шар.
+    private int _playerLifes;                                                                       // Количество жизней у игрока.
 
     void Start()
     {
-        _playerLifes = 3;                                                                       // Начальное количество жизней равно 3.
-        Instantiate(platformPrefab, new Vector2(0, -8), Quaternion.identity);                   // Инициализация префаба платформы в начальных координатах.
-        Instantiate(ballPrefab, new Vector2(0, -8), Quaternion.identity);                       // Инициализация префаба шара в начальных координатах.                                                                          // Установка платформы и шара в заданных координатах.
+        _playerLifes = 3;                                                                           // Начальное количество жизней равно 3.
+        OnPosition();                                                                               // Установка платформы и шара в заданных координатах.
     }
 
-    void Update()
+    /// <summary>
+    /// Метод выполняется при падении шара, происходит уменьшение жизгней игрока, 
+    /// проверка на конец игры, уничтожение платформы и шара, продолжение игры 
+    /// с начальной позиции.
+    /// </summary>
+    public void Dead()
     {
-        if(MovingBall.isFall == true)
-        {
-            Debug.Log("Перенос платформы");
-            Destroy(GameObject.Find("PlatformPrefab(Clone)"));
-            Destroy(GameObject.Find("BallPrefab(Clone)"));
-            MovingBall.isFall = false;
-            OnPosition();
-        }
+        PlayerLifes();                                                                              // Запуск метода. Проверка на изменение количества жизней игрока.                                                                             
+        Destroy(_platform);                                                                         // Уничтожение платформы.
+        Destroy(_ball);                                                                             // Уничтожение шара.
+        MovingBall.isFall = false;                                                                  // Флаг isFall переводится в положение false.
+        OnPosition();                                                                               // Установка платформы и шара на исходную позицию.
     }
 
     /// <summary>
@@ -40,10 +43,10 @@ public class GameRules : MonoBehaviour
         //}
 
         // Условие уменьшения количества жизней.
-        if (MovingBall.isFall == true)                                                          // Если шар падает, 
+        if (MovingBall.isFall == true)                                                              // Если шар падает, 
         {
-            _playerLifes--;                                                                     // то игрок теряет 1 жизнь.
-            GameOver();                                                                         // Проверка на окончание игры.
+            _playerLifes--;                                                                         // то игрок теряет 1 жизнь.
+            GameOver();                                                                             // Проверка на окончание игры.
         }
     }
 
@@ -52,9 +55,14 @@ public class GameRules : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
-        if (_playerLifes <= 0)                                                                  // Если жизней игрока меньше 0,
+        if (_playerLifes <= 0)                                                                      // Если жизней игрока меньше 0,
         {
-            Debug.Log("Game Over");                                                             // то игра заканчивается поражением.
+            Debug.Log("Game Over");                                                                 // то игра заканчивается поражением.
+        }
+
+        if (_playerLifes > 0)                                                                       // Если жизней игрока больше 0,
+        {
+            Debug.Log("Количество жизней -1.");                                                                 // то 
         }
 
         //if(количество блоков < 0)
@@ -64,11 +72,13 @@ public class GameRules : MonoBehaviour
     }
 
     /// <summary>
-    /// Методы выводит платформу и шар на заданную позицию.
+    /// Методы выводит платформу и шар на заданную позицию, 
+    /// назначает платформу родительским объектом для шара.
     /// </summary>
     public void OnPosition()
     {
-        Instantiate(platformPrefab, new Vector2(0, -8), Quaternion.identity);                   // Инициализация префаба платформы в начальных координатах.
-        Instantiate(ballPrefab, new Vector2(0, -8), Quaternion.identity);                       // Инициализация префаба шара в начальных координатах.
+        _platform = Instantiate(platformPrefab, new Vector2(0, -8), Quaternion.identity);           // Создание объекта платформа, инициализация на сцене в начальных координатах.
+        _ball = Instantiate(ballPrefab, new Vector2(0,-8), Quaternion.identity);                    // Создание объекта шар, инициализация на сцене в начальных координатах.
+        _ball.transform.SetParent(_platform.transform);                                             // Назначение платформы родительским объектом для шара.
     }
 }

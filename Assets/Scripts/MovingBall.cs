@@ -29,6 +29,11 @@ public class MovingBall : MonoBehaviour
         _inDirection = rb.velocity;
     }
 
+    private void OnDestroy()
+    {
+        print("Destroyed");
+    }
+
     /// <summary>
     /// Активачия мяча при нажатии ЛКМ, параметры его движение;
     /// </summary>
@@ -57,7 +62,8 @@ public class MovingBall : MonoBehaviour
         if (collision.gameObject.CompareTag("DeathZone"))                                       // Проверка, содержит ли объект тег DeathZone.
         {
             isFall = true;
-            Debug.Log("isFall = true"); // Флаг - шар упал.
+            GameRules gameRules = FindObjectOfType<GameRules>();
+            gameRules.Dead();
         }
     }
 }

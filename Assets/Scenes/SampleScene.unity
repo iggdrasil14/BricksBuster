@@ -960,6 +960,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BrickPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 7141949609206366513, guid: d72e6e72dbf2755479d700734ac9cb94, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
