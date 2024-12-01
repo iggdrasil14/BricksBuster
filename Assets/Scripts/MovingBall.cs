@@ -56,6 +56,8 @@ public class MovingBall : MonoBehaviour
         if (collision.gameObject.CompareTag("Brick"))                                           // Проверка, содержит ли объект тег Brick.
         {
             Destroy(collision.gameObject);                                                      // Уничтожение объекта содержащего тег Brick.
+            GameRules gameRules = FindObjectOfType<GameRules>();                                // Обращение к скрипту GameRules.
+            gameRules._playerScore++;                                                           // Увеличение оков у игрока при уничтожении блока.
         }
 
         // Уничтожение шара, потеря жизни игрока, окончание игры.

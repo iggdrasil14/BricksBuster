@@ -7,13 +7,13 @@ public class BrickTemplate : MonoBehaviour
     public GameObject Prefab;
     public List<Sprite> Sprite;
     public Color color;
-    public int score;
-    public int healthBrick;
+    public int brickScore;
+    public int brickHealth;
     private int _countBlocks = 0;
 
     void Start()
     {
-        healthBrick = 1;
+        brickHealth = 1;
     }
 
     void Update()

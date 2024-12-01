@@ -2,19 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameRules : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI textScore;                                                     // Переменная с полем текст отвечающее за количество очков.
+    [SerializeField] TextMeshProUGUI textLifes;                                                     // Переменная с полем текст отвечающее за количество жизней.
     private GameObject _platform;                                                                   // Скрытая переменная платформы (для уничтожения).
     private GameObject _ball;                                                                       // Скрытая переменная щара (для уничтожения).
     public GameObject platformPrefab;                                                               // Игровой объект со ссылкой на префаб платформы.
     public GameObject ballPrefab;                                                                   // Игровой объект со ссылкой на префаб шар.
-    private int _playerLifes;                                                                       // Количество жизней у игрока.
+    public int _playerScore;                                                                        // Количество очков у игрока.
+    public int _playerLifes;                                                                        // Количество жизней у игрока.
 
     void Start()
     {
+        _playerScore = 0;                                                                           // Начальное количество очков равно 0.
         _playerLifes = 3;                                                                           // Начальное количество жизней равно 3.
+        textScore.text = _playerScore.ToString();                                                   // Трансформация int в string, запись очков в поле с текстом.
+        textLifes.text = _playerLifes.ToString();                                                   // Трансформация int в string, запись жизней в поле с текстом.
         OnPosition();                                                                               // Установка платформы и шара в заданных координатах.
+    }
+
+    private void Update()
+    {
+        textScore.text = _playerScore.ToString();                                                   // Трансформация int в string, запись очков в поле с текстом.
     }
 
     /// <summary>
@@ -46,6 +59,7 @@ public class GameRules : MonoBehaviour
         if (MovingBall.isFall == true)                                                              // Если шар падает, 
         {
             _playerLifes--;                                                                         // то игрок теряет 1 жизнь.
+            textLifes.text = _playerLifes.ToString();                                               // Отобразить количество жизней игрока.
             GameOver();                                                                             // Проверка на окончание игры.
         }
     }
