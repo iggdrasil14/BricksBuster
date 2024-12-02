@@ -9,12 +9,16 @@ public class GameRules : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textScore;                                                     // Переменная с полем текст отвечающее за количество очков.
     [SerializeField] TextMeshProUGUI textLifes;                                                     // Переменная с полем текст отвечающее за количество жизней.
+    [SerializeField] TextMeshProUGUI textTotalScore;                                                // Переменная с полем текст отвечающее за количество жизней.
     private GameObject _platform;                                                                   // Скрытая переменная платформы (для уничтожения).
     private GameObject _ball;                                                                       // Скрытая переменная щара (для уничтожения).
     public GameObject platformPrefab;                                                               // Игровой объект со ссылкой на префаб платформы.
     public GameObject ballPrefab;                                                                   // Игровой объект со ссылкой на префаб шар.
+    public GameObject panelYouWin;                                                                  // Canvas. Панель вызываемая при победе.
+    public GameObject panelGameOver;                                                                // Canvas. Панель вызываемая при поражении.
     public int _playerScore;                                                                        // Количество очков у игрока.
     public int _playerLifes;                                                                        // Количество жизней у игрока.
+    public int _totalScore;                                                                         // Итоговое количество очков.
 
     void Start()
     {
@@ -28,6 +32,7 @@ public class GameRules : MonoBehaviour
     private void Update()
     {
         textScore.text = _playerScore.ToString();                                                   // Трансформация int в string, запись очков в поле с текстом.
+        Cheat();
     }
 
     /// <summary>
@@ -49,12 +54,6 @@ public class GameRules : MonoBehaviour
     /// </summary>
     public void PlayerLifes()
     {
-        // Условия увеличения количества жизней.
-        //if ()
-        //{
-        //    _playersLife++;
-        //}
-
         // Условие уменьшения количества жизней.
         if (MovingBall.isFall == true)                                                              // Если шар падает, 
         {
@@ -69,20 +68,34 @@ public class GameRules : MonoBehaviour
     /// </summary>
     public void GameOver()
     {
+        // При победе.
+        LevelGenerator levelGenerator = FindObjectOfType<LevelGenerator>();                         // Получение доступа к скрипту.
+        if (levelGenerator.brickTotalValue <= 0)                                                    // Если колиечство блоков будет 0 или меньше,
+        {
+            panelYouWin.SetActive(true);                                                            // Canvas. Панель вызываемая при победе.
+            textTotalScore.text = $"Your score: " + _playerScore.ToString();                        // Canvas. Вывод на панель итогового счета.
+            Time.timeScale = 0;                                                                     // Остановка внутриигрового времени, чтобы ничто не сцене не двигалось.
+            Destroy(_platform);                                                                     // Уничтожение платформы.
+            Destroy(_ball);                                                                         // Уничтожение шара.
+        }
+
+        // При поражении.
         if (_playerLifes <= 0)                                                                      // Если жизней игрока меньше 0,
         {
-            Debug.Log("Game Over");                                                                 // то игра заканчивается поражением.
+            panelGameOver.SetActive(true);                                                          // Canvas. Панель вызываемая при поражении.
+            textTotalScore.text = $"Your score: " + _playerScore.ToString();                        // Canvas. Вывод на панель итогового счета.
+            Time.timeScale = 0;                                                                     // Остановка внутриигрового времени, чтобы ничто не сцене не двигалось.
+            Destroy(_platform);                                                                     // Уничтожение платформы.
+            Destroy(_ball);                                                                         // Уничтожение шара.
         }
+    }
 
-        if (_playerLifes > 0)                                                                       // Если жизней игрока больше 0,
-        {
-            Debug.Log("Количество жизней -1.");                                                                 // то 
-        }
-
-        //if(количество блоков < 0)
-        //{
-
-        //}
+    /// <summary>
+    /// Метод выхода из приложения.
+    /// </summary>
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 
     /// <summary>
@@ -94,5 +107,28 @@ public class GameRules : MonoBehaviour
         _platform = Instantiate(platformPrefab, new Vector2(0, -8), Quaternion.identity);           // Создание объекта платформа, инициализация на сцене в начальных координатах.
         _ball = Instantiate(ballPrefab, new Vector2(0,-8), Quaternion.identity);                    // Создание объекта шар, инициализация на сцене в начальных координатах.
         _ball.transform.SetParent(_platform.transform);                                             // Назначение платформы родительским объектом для шара.
+    }
+
+    /// <summary>
+    /// Метод чит-кода, ускоряет и замедляет течение времени при нажатии клавиш.
+    /// </summary>
+    public void Cheat()
+    {
+        if (Input.GetKeyDown(KeyCode.PageUp))                                                       // Ускорения процесса игры.
+        {
+            Time.timeScale++;
+        }
+
+        if (Input.GetKeyDown(KeyCode.PageDown))                                                     // Замедление процесса игры.
+        {
+            if(Time.timeScale > 0)                                                                  // Проверка текущего значения timeScale, если больше 0,
+            {
+                Time.timeScale--;                                                                   // то можно уменьшить значение на 1.
+            }
+            if (Time.timeScale < 0)                                                                 // Проверка текущего значения timeScaleб если меньше 0,
+            {
+                Time.timeScale = 0;                                                                 // то нельзя уменьшить значение, оно равно 0.
+            }
+        }
     }
 }

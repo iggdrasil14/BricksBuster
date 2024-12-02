@@ -58,6 +58,10 @@ public class MovingBall : MonoBehaviour
             Destroy(collision.gameObject);                                                      // Уничтожение объекта содержащего тег Brick.
             GameRules gameRules = FindObjectOfType<GameRules>();                                // Обращение к скрипту GameRules.
             gameRules._playerScore++;                                                           // Увеличение оков у игрока при уничтожении блока.
+
+            LevelGenerator levelGenerator = FindObjectOfType<LevelGenerator>();                 // Подсчет количества уничтоженных блоков. Получение доступа к скрипту.
+            levelGenerator.brickTotalValue--;                                                   // Подсчет количества уничтоженых блоков. Уменьшение общего числа количества блоков.
+            gameRules.GameOver();                                                               // Проверка на выполнение условий победы.
         }
 
         // Уничтожение шара, потеря жизни игрока, окончание игры.

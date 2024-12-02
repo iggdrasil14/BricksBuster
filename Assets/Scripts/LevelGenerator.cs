@@ -1,25 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelGenerator : MonoBehaviour
 {
     public Vector2Int size;
     public Vector2 offset;
     public GameObject brickPrefab;
-    public Gradient gradient;
+    public Gradient gradient;                                                           // Градиент.
+    public int brickTotalValue;                                                         // Максимальное количество кирпичей на уровне.
 
     private void Awake()
     {
-        for (int i = 0; i < size.x; i++) 
-        {
-            for(int j = 0; j < size.y; j++)
-            {
-                GameObject newBrick = Instantiate(brickPrefab, transform);
-                newBrick.transform.position = transform.position + new Vector3((float)((size.x - 1) * 0.5f - i) * offset.x, j * offset.y, 0);
-                newBrick.GetComponent<SpriteRenderer>().color = gradient.Evaluate((float)j / (size.y - 1)); 
-            }
-        }
+        StartLevel();
     }
     // Start is called before the first frame update
     void Start()
@@ -31,5 +25,30 @@ public class LevelGenerator : MonoBehaviour
     void Update()
     {
         
+    }
+
+    /// <summary>
+    /// Метод перезагрузки уровня при нажатии Play Again или Restart.
+    /// </summary>
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);               // Менеджер сцен загружает текущую сцену.
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void StartLevel()
+    {
+        for (int i = 0; i < size.x; i++)
+        {
+            for (int j = 0; j < size.y; j++)
+            {
+                GameObject newBrick = Instantiate(brickPrefab, transform);
+                newBrick.transform.position = transform.position + new Vector3((float)((size.x - 1) * 0.5f - i) * offset.x, j * offset.y, 0);
+                newBrick.GetComponent<SpriteRenderer>().color = gradient.Evaluate((float)j / (size.y - 1));
+            }
+        }
+        brickTotalValue = size.x * size.y;                                              // Максимальное количество кирпичей на уровне.
     }
 }
