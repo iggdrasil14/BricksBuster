@@ -29,10 +29,10 @@ public class MovingBall : MonoBehaviour
         _inDirection = rb.velocity;
     }
 
-    private void OnDestroy()
-    {
-        print("Destroyed");
-    }
+    //private void OnDestroy()
+    //{
+    //    print("Destroyed");
+    //}
 
     /// <summary>
     /// јктивачи€ м€ча при нажатии Ћ ћ, параметры его движение;

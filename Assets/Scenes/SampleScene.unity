@@ -407,7 +407,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &84302271
 RectTransform:
   m_ObjectHideFlags: 0
@@ -638,6 +638,7 @@ MonoBehaviour:
   platformPrefab: {fileID: 3487995383584224082, guid: f3d50494adeeeb94d820410b8f77d87a, type: 3}
   ballPrefab: {fileID: 5432427989023196457, guid: fe342f3f74cb1e340b1c8f4838cf5bf9, type: 3}
   panelYouWin: {fileID: 1817358434}
+  panelMenu: {fileID: 84302270}
   panelGameOver: {fileID: 845464457}
   _playerScore: 0
   _playerLifes: 0

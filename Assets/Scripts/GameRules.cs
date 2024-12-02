@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class GameRules : MonoBehaviour
 {
@@ -15,10 +16,12 @@ public class GameRules : MonoBehaviour
     public GameObject platformPrefab;                                                               // Игровой объект со ссылкой на префаб платформы.
     public GameObject ballPrefab;                                                                   // Игровой объект со ссылкой на префаб шар.
     public GameObject panelYouWin;                                                                  // Canvas. Панель вызываемая при победе.
+    public GameObject panelMenu;                                                                    // Canvas. Панель вызываемая при нажатии клавиши Esc.
     public GameObject panelGameOver;                                                                // Canvas. Панель вызываемая при поражении.
     public int _playerScore;                                                                        // Количество очков у игрока.
     public int _playerLifes;                                                                        // Количество жизней у игрока.
     public int _totalScore;                                                                         // Итоговое количество очков.
+    public bool _isPaused = false;                                                                         // Переменная состояния при паузе.
 
     void Start()
     {
@@ -32,7 +35,8 @@ public class GameRules : MonoBehaviour
     private void Update()
     {
         textScore.text = _playerScore.ToString();                                                   // Трансформация int в string, запись очков в поле с текстом.
-        Cheat();
+        Cheat();                                                                                    // Чит-код ускорения движения шара.
+        Menu();                                                                                     // Активация игрового меню.
     }
 
     /// <summary>
@@ -88,6 +92,35 @@ public class GameRules : MonoBehaviour
             Destroy(_platform);                                                                     // Уничтожение платформы.
             Destroy(_ball);                                                                         // Уничтожение шара.
         }
+    }
+
+    /// <summary>
+    /// Метод активирующий игровое меню (вариант паузы).
+    /// </summary>
+    public void Menu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))                                                       // При нажатии клавиши Esc вызывается игровое меню.
+        {
+            if (_isPaused == false)                                                                 // Если 
+            {
+                panelMenu.SetActive(true);                                                          // Автивация игрового меню.
+                Time.timeScale = 0;                                                                 // Время замедляется до 0.
+                _isPaused = true;
+            }
+            else
+            {
+                panelMenu.SetActive(false);                                                         // Деактивация игрового меню.
+                Time.timeScale = 1;                                                                 // Время замедляется до 1.
+                _isPaused = false;
+            }
+        }
+    }
+
+    public void Continue()
+    {
+        panelMenu.SetActive(false);                                                         // Деактивация игрового меню.
+        Time.timeScale = 1;                                                                 // Время замедляется до 1.
+        _isPaused = false;
     }
 
     /// <summary>
