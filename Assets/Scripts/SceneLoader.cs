@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public GameObject panelOptions;                                                     // Canvas. Панель вызываемая при победе.
     /// <summary>
     /// Начать новую игру (все сохраненные результаты сбрасываются).
     /// </summary>
@@ -18,9 +19,37 @@ public class SceneLoader : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Вывод панели Options на экран.
+    /// </summary>
     public void Options()
     {
+        panelOptions.SetActive(true);
+    }
 
+    /// <summary>
+    /// Закрыть меню Options. Сохранить все изменения параметров.
+    /// </summary>
+    public void OptionsOk()
+    {
+        panelOptions.SetActive(false);
+        //+ сохранение вновь установленных параметров.
+    }
+
+    /// <summary>
+    /// Установка параметров по умолчанию.
+    /// </summary>
+    public void OptionsDefault()
+    {
+        
+    }
+
+    /// <summary>
+    /// Закрыть меню Options. Не сохранять все изменения параметров.
+    /// </summary>
+    public void OptionsCancel()
+    {
+        panelOptions.SetActive(false);
     }
 
     /// <summary>
@@ -46,5 +75,4 @@ public class SceneLoader : MonoBehaviour
     {
         Application.Quit();
     }
-
 }
