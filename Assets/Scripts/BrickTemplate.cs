@@ -4,38 +4,19 @@ using UnityEngine;
 
 public class BrickTemplate : MonoBehaviour
 {
-    public GameObject Prefab;
-    public List<Sprite> Sprite;
-    public Color color;
-    public int brickScore;
-    public int brickHealth;
-    private int _countBlocks = 0;
+    public GameObject brickPrefab;                                          // Поле с префабом блока.
+    public List<Sprite> brickSprites;                                       // Список спрайтов блока (целый, поврежденный, почти разрушенный).
+    public Color brickColor;                                                // Цвет блока.
+    public int brickScore;                                                  // Переменная - количество очков за уничтоженный блок.
+    public int brickHP;                                                     // Переменная - количество жизней у блока.
 
     void Start()
     {
-        brickHealth = 1;
+        brickScore = 1;
+        brickHP = 1;
     }
 
     void Update()
-    {
-        
-    }
-
-    private void OnEnable()
-    {
-        _countBlocks++;
-    }
-
-    private void OnDisable()
-    {
-        _countBlocks--;
-        if(_countBlocks <= 0)
-        {
-            Debug.Log("Блоки закончились");
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
     {
         
     }

@@ -162,9 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3671144490418959635}
-  platform: {fileID: 0}
-  ball: {fileID: 5432427989023196457}
-  platformAndBallPrefab: {fileID: 0}
   isActive: 0
   Force: 300
   OffsetX: 100

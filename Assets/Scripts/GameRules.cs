@@ -116,10 +116,13 @@ public class GameRules : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Метод продолжения игры (снятия с паузы), выход из игрового меню.
+    /// </summary>
     public void Continue()
     {
-        panelMenu.SetActive(false);                                                         // Деактивация игрового меню.
-        Time.timeScale = 1;                                                                 // Время замедляется до 1.
+        panelMenu.SetActive(false);                                                                 // Деактивация игрового меню.
+        Time.timeScale = 1;                                                                         // Время замедляется до 1.
         _isPaused = false;
     }
 

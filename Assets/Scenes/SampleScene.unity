@@ -643,6 +643,7 @@ MonoBehaviour:
   _playerScore: 0
   _playerLifes: 0
   _totalScore: 0
+  _isPaused: 0
 --- !u!4 &185593639
 Transform:
   m_ObjectHideFlags: 0
@@ -741,9 +742,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1122689026}
-        m_TargetAssemblyTypeName: LevelGenerator, Assembly-CSharp
-        m_MethodName: Restart
+      - m_Target: {fileID: 185593638}
+        m_TargetAssemblyTypeName: GameRules, Assembly-CSharp
+        m_MethodName: Continue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2422,7 +2423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63db4133b062b3f4db24d86c91d9f184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 2, y: 2}
+  size: {x: 20, y: 15}
   offset: {x: 1.5, y: 0.5}
   brickPrefab: {fileID: 7141949609206366513, guid: d72e6e72dbf2755479d700734ac9cb94, type: 3}
   gradient:
