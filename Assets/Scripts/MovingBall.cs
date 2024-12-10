@@ -18,6 +18,7 @@ public class MovingBall : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();                                                       // —охранение в переменной rb ссылку на компонент Rigidbody.
         rb.bodyType = RigidbodyType2D.Kinematic;                                                // ”становка режима Kinematic чтобы в начале игры м€ч мог двигатьс€ с платформой.
         _playersLife = 3;
+        isActive = false;
     }
 
     void Update()
@@ -28,11 +29,6 @@ public class MovingBall : MonoBehaviour
         }
         _inDirection = rb.velocity;
     }
-
-    //private void OnDestroy()
-    //{
-    //    print("Destroyed");
-    //}
 
     /// <summary>
     /// јктивачи€ м€ча при нажатии Ћ ћ, параметры его движение;

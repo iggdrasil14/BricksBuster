@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3671144490418959635}
-  isActive: 0
+  isActive: 1
   Force: 300
   OffsetX: 100
   speedBall: 0

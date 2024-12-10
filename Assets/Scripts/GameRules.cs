@@ -21,7 +21,7 @@ public class GameRules : MonoBehaviour
     public int _playerScore;                                                                        // Количество очков у игрока.
     public int _playerLifes;                                                                        // Количество жизней у игрока.
     public int _totalScore;                                                                         // Итоговое количество очков.
-    public bool _isPaused = false;                                                                         // Переменная состояния при паузе.
+    public bool _isPaused = false;                                                                  // Переменная состояния при паузе.
 
     void Start()
     {

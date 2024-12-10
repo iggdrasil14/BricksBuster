@@ -15,17 +15,6 @@ public class LevelGenerator : MonoBehaviour
     {
         StartLevel();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /// <summary>
     /// Метод перезагрузки уровня при нажатии Play Again или Restart.

@@ -5,18 +5,37 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public GameObject panelOptions;                                                     // Canvas. Панель вызываемая при победе.
+    public GameObject panelOptions;                                                     // Canvas. Панель Options.
+    public GameObject panelPlayerNameInputField;                                        // Canvas. Панель ввода имени игрока.
+    public string namePlayer;                                                           // Переменная имени игрока, по умолчанию null.
+    public bool isNamePlayer = false;                                                   // Флаг, введено ли имя игрока.
+
     /// <summary>
     /// Начать новую игру (все сохраненные результаты сбрасываются).
     /// </summary>
     public void NewGame()
     {
-        SceneManager.LoadScene(1);
+        PlayerNameInputField();                                                         // Вывод панели ввода имени игрока.
     }
 
     public void Continue()
     {
 
+    }
+
+    /// <summary>
+    /// Панель ввода имени игрока.
+    /// </summary>
+    public void PlayerNameInputField()                                                  
+    {
+        panelPlayerNameInputField.SetActive(true);                                      // Активация панели ввода имени игрока.
+    }
+
+    public void InputPlayerName(string name)                                            // Ввод имени игрока.
+    {
+        namePlayer = name;                                                              // Запись введеного значения имени игрока
+        isNamePlayer = true;                                                            // Флаг, введено ли имя игрока.
+        SceneManager.LoadScene(1);                                                      // Загрузка игровой сцены.
     }
 
     /// <summary>
