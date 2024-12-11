@@ -7,6 +7,7 @@ using TMPro;
 public class SceneLoader : MonoBehaviour
 {
     public GameObject panelOptions;                                                     // Canvas. Панель Options.
+    public GameObject panelHallOfFame;                                                  // Canvas. Панель Hall of Fame.
     public GameObject panelPlayerNameInputField;                                        // Canvas. Панель ввода имени игрока.
     public TMP_InputField playerName;
     public string namePlayer;                                                           // Переменная имени игрока, по умолчанию null.
@@ -83,15 +84,15 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public void HallOfFame()
     {
-        SceneManager.LoadScene(2);
+        panelHallOfFame.SetActive(true);
     }
 
     /// <summary>
-    /// Кнопка Back из сцены Hall of Fame которая активирует возврат в MainMenu.
+    /// Кнопка Ok из панели Hall of Fame которая скрывает панель.
     /// </summary>
-    public void HallOfFameBack()
+    public void HallOfFameOk()
     {
-        SceneManager.LoadScene(0);
+        panelHallOfFame.SetActive(false);
     }
 
     public void LoadScene(int sceneNumber)
