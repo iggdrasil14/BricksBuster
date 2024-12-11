@@ -364,6 +364,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 185593638}
+        m_TargetAssemblyTypeName: GameRules, Assembly-CSharp
+        m_MethodName: Continue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &83612446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2301,7 +2313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63db4133b062b3f4db24d86c91d9f184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 20, y: 15}
+  size: {x: 2, y: 2}
   offset: {x: 1.5, y: 0.5}
   brickPrefab: {fileID: 7141949609206366513, guid: d72e6e72dbf2755479d700734ac9cb94, type: 3}
   gradient:

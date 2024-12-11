@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Runtime.CompilerServices;
+using UnityEngine.SceneManagement;
 
 public class GameRules : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public class GameRules : MonoBehaviour
 
     void Start()
     {
+        //PlayerPrefs.SetInt("score", 100);
+        //int score = PlayerPrefs.GetInt("score");
+
         _playerScore = 0;                                                                           // Начальное количество очков равно 0.
         _playerLifes = 3;                                                                           // Начальное количество жизней равно 3.
         textScore.text = _playerScore.ToString();                                                   // Трансформация int в string, запись очков в поле с текстом.
@@ -122,8 +126,9 @@ public class GameRules : MonoBehaviour
     public void Continue()
     {
         panelMenu.SetActive(false);                                                                 // Деактивация игрового меню.
-        Time.timeScale = 1;                                                                         // Время замедляется до 1.
+        Time.timeScale = 1;                                                                         // Время до 1.
         _isPaused = false;
+        //SceneManager.LoadScene(1);
     }
 
     /// <summary>

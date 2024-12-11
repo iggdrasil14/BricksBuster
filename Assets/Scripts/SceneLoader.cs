@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class SceneLoader : MonoBehaviour
 {
     public GameObject panelOptions;                                                     // Canvas. Панель Options.
     public GameObject panelPlayerNameInputField;                                        // Canvas. Панель ввода имени игрока.
+    public TMP_InputField playerName;
     public string namePlayer;                                                           // Переменная имени игрока, по умолчанию null.
     public bool isNamePlayer = false;                                                   // Флаг, введено ли имя игрока.
 
@@ -33,6 +35,11 @@ public class SceneLoader : MonoBehaviour
 
     public void InputPlayerName(string name)                                            // Ввод имени игрока.
     {
+        string player = playerName.text;
+
+        //if (player == null) return; //---
+        if (string.IsNullOrEmpty(player)) return;//+++
+
         namePlayer = name;                                                              // Запись введеного значения имени игрока
         isNamePlayer = true;                                                            // Флаг, введено ли имя игрока.
         SceneManager.LoadScene(1);                                                      // Загрузка игровой сцены.
@@ -85,6 +92,11 @@ public class SceneLoader : MonoBehaviour
     public void HallOfFameBack()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void LoadScene(int sceneNumber)
+    {
+        SceneManager.LoadScene(sceneNumber);
     }
 
     /// <summary>
