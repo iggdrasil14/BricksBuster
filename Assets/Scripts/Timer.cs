@@ -12,9 +12,6 @@ public class Timer : MonoBehaviour
     public int sec = 0;                                                                     // Переменная секунд.
     public int min = 0;                                                                     // Переменная минут.
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(ITimer());
