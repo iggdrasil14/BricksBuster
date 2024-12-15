@@ -34,13 +34,25 @@ public class SceneLoader : MonoBehaviour
         panelPlayerNameInputField.SetActive(true);                                      // Активация панели ввода имени игрока.
     }
 
-    public void InputPlayerName(string name)                                            // Ввод имени игрока.
+    /// <summary>
+    /// Кнопка на панели ввода имени игрока - отменяет ввод, скрывает панель.
+    /// </summary>
+    public void PlayerNameInputFieldCancel()
+    {
+        panelPlayerNameInputField.SetActive(false);                                     // Активация панели ввода имени игрока.
+    }
+
+    /// <summary>
+    /// Метод ввода имени игрока в поле ввода, с проверкой на "пустоту" заполнения поля.
+    /// </summary>
+    /// <param name="name"></param>
+    public void InputPlayerName(string name)                                            // Ввод имени игрока. 
     {
         string player = playerName.text;
-
-        //if (player == null) return; //---
-        if (string.IsNullOrEmpty(player)) return;//+++
-
+        if (string.IsNullOrEmpty(player))                                               // Проверка на заполненность поля,
+        {
+            return;                                                                     // если поле не заполнено, то ничего не происходит.
+        }
         namePlayer = name;                                                              // Запись введеного значения имени игрока
         isNamePlayer = true;                                                            // Флаг, введено ли имя игрока.
         SceneManager.LoadScene(1);                                                      // Загрузка игровой сцены.
