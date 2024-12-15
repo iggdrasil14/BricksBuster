@@ -6,6 +6,8 @@ using TMPro;
 
 public class SceneLoader : MonoBehaviour
 {
+    public static string PlayerName { get; private set; }
+
     public GameObject panelOptions;                                                     // Canvas. Панель Options.
     public GameObject panelHallOfFame;                                                  // Canvas. Панель Hall of Fame.
     public GameObject panelPlayerNameInputField;                                        // Canvas. Панель ввода имени игрока.
@@ -42,6 +44,9 @@ public class SceneLoader : MonoBehaviour
         panelPlayerNameInputField.SetActive(false);                                     // Активация панели ввода имени игрока.
     }
 
+
+    // Использовать PlayerPrefs тут.
+
     /// <summary>
     /// Метод ввода имени игрока в поле ввода, с проверкой на "пустоту" заполнения поля.
     /// </summary>
@@ -54,6 +59,7 @@ public class SceneLoader : MonoBehaviour
             return;                                                                     // если поле не заполнено, то ничего не происходит.
         }
         namePlayer = name;                                                              // Запись введеного значения имени игрока
+        PlayerName = name;                                                              //--
         isNamePlayer = true;                                                            // Флаг, введено ли имя игрока.
         SceneManager.LoadScene(1);                                                      // Загрузка игровой сцены.
     }

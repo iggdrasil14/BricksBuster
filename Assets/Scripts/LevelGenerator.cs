@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelGenerator : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI textLevelNumber;                                               // Переменная с полем текст отвечающее за номер уровня.
+    [SerializeField] TextMeshProUGUI textLevelNumber;                                   // Переменная с полем текст отвечающее за номер уровня.
     public Vector2Int size;
     public Vector2 offset;
     public GameObject brickPrefab;
@@ -17,7 +17,6 @@ public class LevelGenerator : MonoBehaviour
     private void Awake()
     {
         StartLevel();
-
     }
 
     /// <summary>
@@ -43,7 +42,7 @@ public class LevelGenerator : MonoBehaviour
             }
         }
         brickTotalValue = size.x * size.y;                                              // Максимальное количество кирпичей на уровне.
-        _levelNumber++;
-        textLevelNumber.text = "Level: " + _levelNumber.ToString();                                 // Трансформация int в string, запись номера уровня в поле с текстом.
+        _levelNumber++;                                                                 // Увеличение номера уровня на 1.
+        textLevelNumber.text = "Level: " + _levelNumber.ToString();                     // Трансформация int в string, запись номера уровня в поле с текстом.
     }
 }
