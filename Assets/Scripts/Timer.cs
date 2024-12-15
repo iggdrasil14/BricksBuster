@@ -5,10 +5,14 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
+    [SerializeField] private int delta = 0;
+    [SerializeField] TextMeshProUGUI textPanelYouWinTime;                                   // Вывод на панеле YouWin информации о времени.
+    [SerializeField] TextMeshProUGUI textPanelGameOverTime;                                 // Вывод на панеле GameOver информации о времени.
+    public TextMeshProUGUI timerText;                                                       // Ссылка на текст с таймером.
     public int sec = 0;                                                                     // Переменная секунд.
     public int min = 0;                                                                     // Переменная минут.
-    public TextMeshProUGUI timerText;                                                       // Ссылка на текст с таймером.
-    [SerializeField] private int delta = 0;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +31,8 @@ public class Timer : MonoBehaviour
             }
             sec += delta;
             timerText.text = min.ToString("D2") + " : " + sec.ToString("D2");
+            textPanelYouWinTime.text = min.ToString("D2") + " : " + sec.ToString("D2");
+            textPanelGameOverTime.text = min.ToString("D2") + " : " + sec.ToString("D2");
             yield return new WaitForSeconds(1);
         }
     }
