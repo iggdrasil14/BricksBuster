@@ -12,6 +12,9 @@ public class GameRules : MonoBehaviour
     [SerializeField] TextMeshProUGUI textScore;                                                     // Переменная с полем текст отвечающее за количество очков.
     [SerializeField] TextMeshProUGUI textLifes;                                                     // Переменная с полем текст отвечающее за количество жизней.
     [SerializeField] TextMeshProUGUI textTotalScore;                                                // Переменная с полем текст отвечающее за количество жизней.
+    [SerializeField] TextMeshProUGUI textPanelYouWinScore;                                          // Вывод на панеле YouWin информации об очках.
+    [SerializeField] TextMeshProUGUI textPanelYouWinLifes;                                          // Вывод на панеле YouWin информации о жизнях
+    [SerializeField] TextMeshProUGUI textPanelYouWinTime;                                           // Вывод на панеле YouWin информации о времени.
     private GameObject _platform;                                                                   // Скрытая переменная платформы (для уничтожения).
     private GameObject _ball;                                                                       // Скрытая переменная щара (для уничтожения).
     public GameObject platformPrefab;                                                               // Игровой объект со ссылкой на префаб платформы.
@@ -22,6 +25,7 @@ public class GameRules : MonoBehaviour
     public int _playerScore;                                                                        // Количество очков у игрока.
     public int _playerLifes;                                                                        // Количество жизней у игрока.
     public int _totalScore;                                                                         // Итоговое количество очков.
+    public int _time;
     public bool _isPaused = false;                                                                  // Переменная состояния при паузе.
 
     void Start()
@@ -38,6 +42,10 @@ public class GameRules : MonoBehaviour
 
     private void Update()
     {
+        textPanelYouWinScore.text = _playerScore.ToString();
+        textPanelYouWinLifes.text = _playerLifes.ToString();
+        textPanelYouWinTime.text = _time.ToString();
+
         textScore.text = _playerScore.ToString();                                                   // Трансформация int в string, запись очков в поле с текстом.
         Cheat();                                                                                    // Чит-код ускорения движения шара.
         Menu();                                                                                     // Активация игрового меню.
@@ -126,6 +134,7 @@ public class GameRules : MonoBehaviour
     public void Continue()
     {
         panelMenu.SetActive(false);                                                                 // Деактивация игрового меню.
+        panelYouWin.SetActive(false);                                                               // Деактивация панели YouWin.
         Time.timeScale = 1;                                                                         // Время до 1.
         _isPaused = false;
         //SceneManager.LoadScene(1);
