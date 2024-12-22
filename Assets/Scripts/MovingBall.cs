@@ -55,8 +55,6 @@ public class MovingBall : MonoBehaviour
             GameRules gameRules = FindObjectOfType<GameRules>();                                // Обращение к скрипту GameRules.
             gameRules._playerScore++;                                                           // Увеличение оков у игрока при уничтожении блока.
 
-
-
             LevelGenerator levelGenerator = FindObjectOfType<LevelGenerator>();                 // Подсчет количества уничтоженных блоков. Получение доступа к скрипту.
             levelGenerator.brickTotalValue--;                                                   // Подсчет количества уничтоженых блоков. Уменьшение общего числа количества блоков.
             gameRules.GameOver();                                                               // Проверка на выполнение условий победы.

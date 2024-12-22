@@ -12,8 +12,7 @@ public class BrickTemplate : MonoBehaviour
 
     void Start()
     {
-        brickScore = 1;
-        brickHP = 1;
+
     }
 
     void Update()
