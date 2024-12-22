@@ -43,6 +43,10 @@ public class LevelGenerator : MonoBehaviour
         }
         brickTotalValue = size.x * size.y;                                              // Максимальное количество кирпичей на уровне.
         _levelNumber++;                                                                 // Увеличение номера уровня на 1.
+
+        PlayerPrefs.GetInt("PlayerLevelNumber", _levelNumber);                          // Запись данных о текущем уровне Игрока.
+        PlayerPrefs.Save();                                                             // Сохранение данных о текущем уровне Игрока.
+
         textLevelNumber.text = "Level: " + _levelNumber.ToString();                     // Трансформация int в string, запись номера уровня в поле с текстом.
     }
 }

@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class GameRules : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI textName;                                                     // Переменная с полем текст отвечающее за количество очков.
     [SerializeField] TextMeshProUGUI textScore;                                                     // Переменная с полем текст отвечающее за количество очков.
     [SerializeField] TextMeshProUGUI textLifes;                                                     // Переменная с полем текст отвечающее за количество жизней.
     [SerializeField] TextMeshProUGUI textTotalScore;                                                // Переменная с полем текст отвечающее за количество очков.
@@ -21,6 +22,7 @@ public class GameRules : MonoBehaviour
     public GameObject panelYouWin;                                                                  // Canvas. Панель вызываемая при победе.
     public GameObject panelMenu;                                                                    // Canvas. Панель вызываемая при нажатии клавиши Esc.
     public GameObject panelGameOver;                                                                // Canvas. Панель вызываемая при поражении.
+    public string _playerName;
     public int _playerScore;                                                                        // Количество очков у игрока.
     public int _playerLifes;                                                                        // Количество жизней у игрока.
     public int _totalScore;                                                                         // Итоговое количество очков.
@@ -28,16 +30,52 @@ public class GameRules : MonoBehaviour
 
     void Start()
     {
-        //PlayerPrefs.SetInt("score", 100);
-        //int score = PlayerPrefs.GetInt("score");
+        PlayerDataLoad();                                                                           // Метод загрузки данных(имя, количество очков и жизней, номер уровня) об игроке.
 
-        _playerScore = 0;                                                                           // Начальное количество очков равно 0.
-        _playerLifes = 3;                                                                           // Начальное количество жизней равно 3.
-
+        textName.text = _playerName;
+        Debug.Log(_playerName);
         textScore.text = _playerScore.ToString();                                                   // Трансформация int в string, запись очков в поле с текстом.
         textLifes.text = _playerLifes.ToString();                                                   // Трансформация int в string, запись жизней в поле с текстом.
 
         OnPosition();                                                                               // Установка платформы и шара в заданных координатах.
+    }
+
+    /// <summary>
+    /// Метод загрузки данных (имя, количество очков и жизней, номер уровня) об игроке.
+    /// </summary>
+    private void PlayerDataLoad()
+    {
+        // Имя Игрока.
+        if (PlayerPrefs.HasKey("SlotOnePlayerName") == true)                                        // Если, SlotOnePlayerName содержит данные,
+        {
+            string _playerName = PlayerPrefs.GetString("SlotOnePlayerName");                        // то в имя Игрока записывается значение указанное при вводе.
+        }
+
+        // Количество очков Игрока.
+        if (PlayerPrefs.HasKey("PlayerScore") == true)                                              // Если, PlayerScore содержит данные,
+        {
+            int _playerScore = PlayerPrefs.GetInt("PlayerScore");                                   // то загружаются данные о количестве очков из прошлой игры.
+        }
+        else                                                                                        // иначе,
+        {
+            _playerScore = 0;                                                                       // начальное количество очков Игрока равно 0.
+        }
+
+        // Количество жизней игрока.
+        if (PlayerPrefs.HasKey("PlayerLifes") == true)                                              // Если, PlayerLifes содержит данные,
+        {
+            int _playerLifes = PlayerPrefs.GetInt("PlayerLifes");                                   // то загружаются данные о количестве жизней из прошлой игры.
+        }
+        else                                                                                        // иначе,
+        {
+            _playerLifes = 3;                                                                       // начальное количество жизней Игрока равно 3.
+        }
+
+        // Текущий уровень Игрока.
+        if (PlayerPrefs.HasKey("PlayerLevelNumber") == true)                                        // Если, PlayerLevelNumber содержит данные,
+        {
+            int _levelNumber = PlayerPrefs.GetInt("PlayerSevedLevel");                              // то загружаются данные о последнем уровне из прошлой игры.
+        }
     }
 
     private void Update()
@@ -75,8 +113,20 @@ public class GameRules : MonoBehaviour
         {
             _playerLifes--;                                                                         // то игрок теряет 1 жизнь.
             textLifes.text = _playerLifes.ToString();                                               // Отобразить количество жизней игрока.
+
+            PlayerLifesSave();                                                                      // Метод сохранение текущего значения жизней Игрока.
+
             GameOver();                                                                             // Проверка на окончание игры.
         }
+    }
+
+    /// <summary>
+    /// Метод сохранение текущего значения жизней Игрока.
+    /// </summary>
+    private void PlayerLifesSave()
+    {
+        PlayerPrefs.GetInt("PlayerLifes", _playerLifes);                                        // Запись данных о количестве жизней Игрока.
+        PlayerPrefs.Save();                                                                     // Сохранение данных о количестве жизней Игрока.
     }
 
     /// <summary>
@@ -90,6 +140,9 @@ public class GameRules : MonoBehaviour
         {
             panelYouWin.SetActive(true);                                                            // Canvas. Панель вызываемая при победе.
             textTotalScore.text = $"Your score: " + _playerScore.ToString();                        // Canvas. Вывод на панель итогового счета.
+
+            PlayerScoreSave();                                                                      // Запись данных и сохранение информации о количестве набранных Игроком очков.
+
             Time.timeScale = 0;                                                                     // Остановка внутриигрового времени, чтобы ничто не сцене не двигалось.
             Destroy(_platform);                                                                     // Уничтожение платформы.
             Destroy(_ball);                                                                         // Уничтожение шара.
@@ -100,10 +153,22 @@ public class GameRules : MonoBehaviour
         {
             panelGameOver.SetActive(true);                                                          // Canvas. Панель вызываемая при поражении.
             textTotalScore.text = $"Your score: " + _playerScore.ToString();                        // Canvas. Вывод на панель итогового счета.
+
+            PlayerScoreSave();                                                                      // Запись данных и сохранение информации о количестве набранных Игроком очков.
+
             Time.timeScale = 0;                                                                     // Остановка внутриигрового времени, чтобы ничто не сцене не двигалось.
             Destroy(_platform);                                                                     // Уничтожение платформы.
             Destroy(_ball);                                                                         // Уничтожение шара.
         }
+    }
+
+    /// <summary>
+    /// Запись данных и сохранение информации о количестве набранных Игроком очков.
+    /// </summary>
+    private void PlayerScoreSave()
+    {
+        PlayerPrefs.GetInt("PlayerScore", _playerScore);                                        // Запись данных о количестве очков Игрока.
+        PlayerPrefs.Save();                                                                     // Сохранение данных о количестве очков Игрока.
     }
 
     /// <summary>

@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
     public static string PlayerName { get; private set; }
 
+    public GameObject panelSelectSaveSlot;                                              // Canvas. Панель Select Save Slot.
     public GameObject panelOptions;                                                     // Canvas. Панель Options.
     public GameObject panelHallOfFame;                                                  // Canvas. Панель Hall of Fame.
     public GameObject panelPlayerNameInputField;                                        // Canvas. Панель ввода имени игрока.
+    public Button ButtonSlotOne;                                                        // Canvas. Кнопка (по умолчанию пуста и используется для записи имени Игрока).
+    public Button ButtonDelSlotOne;                                                     // Canvas. Кнопка удаления ячейкис сохранения прогресса (активна если есть прогресс).
     public TMP_InputField playerName;
     public string namePlayer;                                                           // Переменная имени игрока, по умолчанию null.
     public bool isNamePlayer = false;                                                   // Флаг, введено ли имя игрока.
@@ -20,18 +24,30 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public void NewGame()
     {
-        PlayerNameInputField();                                                         // Вывод панели ввода имени игрока.
+        SelectSaveSlot();                                                                 // Вывод панели слотов сохранения.
+        //PlayerNameInputField();                                                         // Вывод панели ввода имени игрока.
     }
 
-    public void Continue()
+    /// <summary>
+    /// Метод вывода панели со слотами сохранения.
+    /// </summary>
+    public void SelectSaveSlot()
     {
+        panelSelectSaveSlot.SetActive(true);
+    }
 
+    /// <summary>
+    /// Метод выбора первого слота сохранения с последующим выводом панели ввода имени.
+    /// </summary>
+    public void SelectSaveSlotButtonSlotOne()
+    {
+        PlayerNameInputField();
     }
 
     /// <summary>
     /// Панель ввода имени игрока.
     /// </summary>
-    public void PlayerNameInputField()                                                  
+    public void PlayerNameInputField()
     {
         panelPlayerNameInputField.SetActive(true);                                      // Активация панели ввода имени игрока.
     }
@@ -41,7 +57,7 @@ public class SceneLoader : MonoBehaviour
     /// </summary>
     public void PlayerNameInputFieldCancel()
     {
-        panelPlayerNameInputField.SetActive(false);                                     // Активация панели ввода имени игрока.
+        panelPlayerNameInputField.SetActive(false);                                     
     }
 
 
@@ -59,10 +75,34 @@ public class SceneLoader : MonoBehaviour
             return;                                                                     // если поле не заполнено, то ничего не происходит.
         }
         namePlayer = name;                                                              // Запись введеного значения имени игрока
-        PlayerName = name;                                                              //--
+        PlayerName = name;                                                              // 
+
         isNamePlayer = true;                                                            // Флаг, введено ли имя игрока.
+        if(isNamePlayer == true)                                                        // если имя Игрока введено,
+        {
+            ButtonDelSlotOne.gameObject.SetActive(true);                                // то кнопка ButtonDelSlotOne активна.
+        }
+
+        PlayerPrefs.SetString("SlotOnePlayerName", name);                               // Добавление в хранилище "SlotOnePlayerName" имени игрока.
+        PlayerPrefs.Save();                                                             // Сохранение имени Игрока.
+        //ButtonSlotOne. = PlayerPrefs.GetString("SlotOnePlayerName");                               // Запись имени Игрока в название кнопки.
+
         SceneManager.LoadScene(1);                                                      // Загрузка игровой сцены.
     }
+
+    /// <summary>
+    /// Метод сокрытия панели со слотами сохранения, выход в основное меню.
+    /// </summary>
+    public void SelectSaveSlotBack()
+    {
+        panelSelectSaveSlot.SetActive(false);
+    }
+
+    public void Continue()
+    {
+
+    }
+
 
     /// <summary>
     /// Вывод панели Options на экран.
