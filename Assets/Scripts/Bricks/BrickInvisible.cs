@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BrickInvisible : BrickTemplate
 {
-    // Start is called before the first frame update
     void Start()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
@@ -12,5 +11,10 @@ public class BrickInvisible : BrickTemplate
 
         brickHP = 2;                                                                        // Прочность блока.
         brickScore = 3;                                                                     // Количество очков за уничтоженный блок.
+    }
+
+    public override void Crash(bool isForceDestroy = false)
+    {
+        base.Crash(isForceDestroy);
     }
 }

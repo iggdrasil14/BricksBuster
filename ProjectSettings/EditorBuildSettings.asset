@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HallOfFame.unity
     guid: a409a30726ba83344898b4b50a94c188
+  - enabled: 1
+    path: Assets/Scenes/Level_1_heart.unity
+    guid: ac60082cd760b9f46aeef1f03b77b6e9
+  - enabled: 1
+    path: Assets/Scenes/Level_2_sun.unity
+    guid: c214bc3c1d76a324fa680508f2f3ac33
+  - enabled: 1
+    path: Assets/Scenes/Level_3_deer.unity
+    guid: 2ea05b7c534b030439978f1e6e93ee69
   m_configObjects: {}

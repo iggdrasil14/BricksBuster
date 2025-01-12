@@ -4,12 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelGenerator : MonoBehaviour
+public class Level_2_sun : LevelGenerator
 {
-    [SerializeField] protected TextMeshProUGUI textLevelNumber;                                   // Переменная с полем текст отвечающее за номер уровня.
-    public int brickTotalValue;                                                         // Максимальное количество блоков на уровне.
-    public int _levelNumber;                                                            // Номер уровня.
-
     private void Awake()
     {
         StartLevel();
@@ -26,10 +22,10 @@ public class LevelGenerator : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    public virtual void StartLevel()
+    public override void StartLevel()
     {
-        brickTotalValue = 151;                                                          // Максимальное количество блоков на уровне.
-        _levelNumber = 1;                                                               // Номер текущего уровня.
+        brickTotalValue = 120;                                                          // Максимальное количество блоков на уровне.
+        _levelNumber = 2;                                                               // Номер текущего уровня.
 
         PlayerPrefs.SetInt("PlayerLevelNumber", _levelNumber);                          // Запись данных о текущем уровне Игрока.
         PlayerPrefs.Save();                                                             // Сохранение данных о текущем уровне Игрока.

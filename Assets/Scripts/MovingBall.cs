@@ -49,16 +49,17 @@ public class MovingBall : MonoBehaviour
         rb.velocity = direction * speedBall;                                                    // Установка новой скорости мяча после отскока.
         
         // Уничтожение объекта.
-        if (collision.gameObject.CompareTag("Brick"))                                           // Проверка, содержит ли объект тег Brick.
-        {
-            Destroy(collision.gameObject);                                                      // Уничтожение объекта содержащего тег Brick.
-            GameRules gameRules = FindObjectOfType<GameRules>();                                // Обращение к скрипту GameRules.
-            gameRules._playerScore++;                                                           // Увеличение оков у игрока при уничтожении блока.
+        //if (collision.gameObject.CompareTag("Brick"))                                           // Проверка, содержит ли объект тег Brick.
+        //{
+            
+        //    Destroy(collision.gameObject);                                                      // Уничтожение объекта содержащего тег Brick.
+        //    GameRules gameRules = FindObjectOfType<GameRules>();                                // Обращение к скрипту GameRules.
+        //    gameRules._playerScore++;                                                           // Увеличение оков у игрока при уничтожении блока.
 
-            LevelGenerator levelGenerator = FindObjectOfType<LevelGenerator>();                 // Подсчет количества уничтоженных блоков. Получение доступа к скрипту.
-            levelGenerator.brickTotalValue--;                                                   // Подсчет количества уничтоженых блоков. Уменьшение общего числа количества блоков.
-            gameRules.GameOver();                                                               // Проверка на выполнение условий победы.
-        }
+            //LevelGenerator levelGenerator = FindObjectOfType<LevelGenerator>();                 // Подсчет количества уничтоженных блоков. Получение доступа к скрипту.
+            //levelGenerator.brickTotalValue--;                                                   // Подсчет количества уничтоженых блоков. Уменьшение общего числа количества блоков.
+            //gameRules.GameOver();                                                               // Проверка на выполнение условий победы.
+        //}
 
         // Уничтожение шара, потеря жизни игрока, окончание игры.
         if (collision.gameObject.CompareTag("DeathZone"))                                       // Проверка, содержит ли объект тег DeathZone.
@@ -66,6 +67,12 @@ public class MovingBall : MonoBehaviour
             isFall = true;
             GameRules gameRules = FindObjectOfType<GameRules>();
             gameRules.Dead();
+        }
+
+        //collision with bricks
+        if(collision.gameObject.TryGetComponent<BrickTemplate>(out BrickTemplate brick))
+        {
+            brick.Crash();
         }
     }
 }

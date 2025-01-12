@@ -38,6 +38,7 @@ public class GameRules : MonoBehaviour
         textLifes.text = _playerLifes.ToString();                                                   // Трансформация int в string, запись жизней в поле с текстом.
 
         OnPosition();                                                                               // Установка платформы и шара в заданных координатах.
+        Time.timeScale = 1.0f;                                                                      // Время возвращается в нормальное состояние.
     }
 
     /// <summary>
@@ -48,18 +49,21 @@ public class GameRules : MonoBehaviour
         // Имя Игрока.
         if (PlayerPrefs.HasKey("SlotOnePlayerName") == true)                                        // Если, SlotOnePlayerName содержит данные,
         {
-            string _playerName = PlayerPrefs.GetString("SlotOnePlayerName");                        // то в имя Игрока записывается значение указанное при вводе.
+            _playerName = PlayerPrefs.GetString("SlotOnePlayerName");                        // то в имя Игрока записывается значение указанное при вводе.
         }
 
         // Количество очков Игрока.
         if (PlayerPrefs.HasKey("PlayerScore") == true)                                              // Если, PlayerScore содержит данные,
         {
-            int _playerScore = PlayerPrefs.GetInt("PlayerScore");                                   // то загружаются данные о количестве очков из прошлой игры.
+            _playerScore = PlayerPrefs.GetInt("PlayerScore");                                   // то загружаются данные о количестве очков из прошлой игры.
         }
         else                                                                                        // иначе,
         {
             _playerScore = 0;                                                                       // начальное количество очков Игрока равно 0.
         }
+
+        // Переделать как код сделано ниже.
+        _playerScore = PlayerPrefs.GetInt("PlayerScore", 0);                                   // то загружаются данные о количестве очков из прошлой игры.
 
         // Количество жизней игрока.
         if (PlayerPrefs.HasKey("PlayerLifes") == true)                                              // Если, PlayerLifes содержит данные,
@@ -135,7 +139,7 @@ public class GameRules : MonoBehaviour
     public void GameOver()
     {
         // При победе.
-        LevelGenerator levelGenerator = FindObjectOfType<LevelGenerator>();                         // Получение доступа к скрипту.
+        LevelGenerator levelGenerator = FindObjectOfType<LevelGenerator>();                         // Получение доступа к ОБЪЕКТУ со скриптом (скрипт должен быть на сцене, на объекте).
         if (levelGenerator.brickTotalValue <= 0)                                                    // Если колиечство блоков будет 0 или меньше,
         {
             panelYouWin.SetActive(true);                                                            // Canvas. Панель вызываемая при победе.
@@ -187,7 +191,7 @@ public class GameRules : MonoBehaviour
             else
             {
                 panelMenu.SetActive(false);                                                         // Деактивация игрового меню.
-                Time.timeScale = 1;                                                                 // Время замедляется до 1.
+                Time.timeScale = 1;                                                                 // Время восстанавливает стандартную скорость - 1.
                 _isPaused = false;
             }
         }
@@ -210,7 +214,11 @@ public class GameRules : MonoBehaviour
         panelYouWin.SetActive(false);                                                               // Деактивация панели YouWin.
         Time.timeScale = 1;                                                                         // Время до 1.
         _isPaused = false;
-        //SceneManager.LoadScene(1);
+    }
+
+    public void NextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);                       // Загрузка 2-го уровня.
     }
 
     /// <summary>

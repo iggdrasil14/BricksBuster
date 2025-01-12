@@ -6,10 +6,11 @@ public class BrickHeavy : BrickTemplate
 {
     void Start()
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = Color.red;                                                   // Устанавливается цвет блока.
-
         brickHP = 3;                                                                        // Прочность блока.
         brickScore = 3;                                                                     // Количество очков за уничтоженный блок.
+    }
+    public override void Crash(bool isForceDestroy = false)
+    {
+        base.Crash(isForceDestroy);
     }
 }

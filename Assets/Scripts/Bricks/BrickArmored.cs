@@ -6,10 +6,11 @@ public class BrickArmored : BrickTemplate
 {
     void Start()
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = Color.black;                                                 // Устанавливается цвет блока.
-        
-        brickHP = 9999;                                                                     // Прочность блока.
+        brickHP = 999;                                                                      // Прочность блока.
         brickScore = 10;                                                                    // Количество очков за уничтоженный блок.
+    }
+    public override void Crash(bool isForceDestroy = false)
+    {
+        base.Crash(isForceDestroy);
     }
 }
